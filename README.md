@@ -1,6 +1,6 @@
 # About This Repo
 
-I created this repository to experiment with a form of Steganography - Least significant bit substitution. If we'd like to know how this works under the hood we can take a look at the simplest example (see [LSB Substitution Explained](##LSB Substitution Method)). More code will be added to this repository as I continue testing things.
+I created this repository to experiment with a form of Steganography - Least significant bit substitution. If we'd like to know how this works under the hood we can take a look at the simplest example ( see [LSB Substitution Explained](##LSB Substitution Explained) ). More code will be added to this repository as I continue testing things.
 
 # Requirements
 
