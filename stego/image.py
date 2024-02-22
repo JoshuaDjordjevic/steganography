@@ -98,9 +98,6 @@ def read_data(image:Image.Image,
     # Validate image mode
     channel_count = IMAGE_MODE_CHANNELS.get(image.mode, None)
     assert channel_count is not None, f"Image mode {image.mode} not supported. Try converting the image first."
-
-    # Validate image format
-    assert image.format == "PNG", "Input image is not in PNG format"
     
     # Convert end-of-data marker to bitstring
     eod_bits = utility.bytes_to_bitstring(eod_marker)

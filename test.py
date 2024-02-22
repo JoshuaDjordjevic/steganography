@@ -18,7 +18,7 @@ try:
     # Hide the data in the image and save the result to a temporary file
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_output_file:
         output_image = stego.image.write_data(input_image, hidden_data, EOD_BYTES, lsb_count=3)
-        output_image.save(temp_output_file.name)
+        output_image.save(temp_output_file.name, "PNG")
 
         # Display the path of the output image
         print(f"Output image saved to: {temp_output_file.name}")
