@@ -1,6 +1,8 @@
+<div id="top"></div>
+
 # About This Repo
 
-I created this repository to experiment with a form of Steganography - Least significant bit substitution. If we'd like to know how this works under the hood we can take a look at the simplest example ( see [LSB Substitution Explained](##LSB Substitution Explained) ). More code will be added to this repository as I continue testing things.
+I created this repository to experiment with a form of Steganography - Least significant bit substitution. If we'd like to know how this works under the hood we can take a look at the simplest example (see the explanation below). More code will be added to this repository as I continue testing things.
 
 # Requirements
 
@@ -14,6 +16,8 @@ That's the writing step done. We've successfully stored 3 of our own bits in som
 
 Now how is this useful? All we've seen is storing 3 bits in a small number. That doesn't sound very exciting! Well, what if we used an image as our container instead? And we could use all the numbers from every pixel in the image over every channel (An RGB (red, green, blue) image has three channels to use, each of which is an 8-bit number). Now if this image was 1920x1080 pixels in size (the same size as most modern displays), we'd have 6220800 8-bit numbers to use for storing our own data. We can split up any large amount of bits into smaller n-size groups and replace the last n bits from each number with ours. If we were replacing 3 bits from every one of those 6.2 million 8-bit numbers, we'd have the equivalent storage space of 2.22MB! (The calculation for this is: Total Bits = Image Pixels * Channels * Replacement Bit Count... 1920 * 1080 * 3 * 3 bits ~= 2.3 million bytes ~= 2.2 thousand KB) (Funnily enough, that's actually more than enough space to store a smaller image inside!)
 
+<p><a href="#top">back to top</a></p>
+
 ### Better Approaches To Hiding Precious Bytes
 
 Now what about artifacting? Well, with LSB substitution, artifacts can appear my visible if the input image is very uniform or a repeating pattern. Say we used a plain white image as our input. We'd see all the slight colour variations after editing the bits of our image. If we plan on sending this image anywhere over the internet we wouldn't want people to easily see the data we're trying to hide, so it's more appropriate to use an original image (i.e. take a photo with your phone camera and use that as the input - This provides a layer of noise too which means artifacts will be hardly noticeable if at all!)
@@ -23,6 +27,8 @@ That's certainly one way to make sure potential attackers or bad actors can't se
 A *slightly* better way of putting our data in the image or container would be first shuffling the order in which we do this, using a seeded shuffle algorithm. This means we can generate a list of indices (all the containers we'll use), shuffle that list, and then insert our data container by container. If we did this with an image, we'd see our data is all spread out over the pixels instead of inserted row by row or column by column.
 
 Now that's all well and good (it's not), but our data still isn't secure. It's better practice to first encrypt our data using some modern encryption algorithm. If you'd like to read further into this I recommend checking out the python `Fernet` library [https://cryptography.io/en/latest/fernet/](https://cryptography.io/en/latest/fernet/ "Fernet (Symmetric Encryption), cryptography.io").
+
+<p><a href="#top">back to top</a></p>
 
 # How To Use
 
@@ -101,3 +107,5 @@ recovered_data = stego.image.read_data(output_image, EOD_BYTES)
 # Display the recovered data to the user
 print(recovered_data)
 ```
+
+<p><a href="#top">back to top</a></p>
