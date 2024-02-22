@@ -16,7 +16,7 @@ That's the writing step done. We've successfully stored 3 of our own bits in som
 
 Now how is this useful? All we've seen is storing 3 bits in a small number. That doesn't sound very exciting! Well, what if we used an image as our container instead? And we could use all the numbers from every pixel in the image over every channel (An RGB (red, green, blue) image has three channels to use, each of which is an 8-bit number). Now if this image was 1920x1080 pixels in size (the same size as most modern displays), we'd have 6220800 8-bit numbers to use for storing our own data. We can split up any large amount of bits into smaller n-size groups and replace the last n bits from each number with ours. If we were replacing 3 bits from every one of those 6.2 million 8-bit numbers, we'd have the equivalent storage space of 2.22MB! (The calculation for this is: Total Bits = Image Pixels * Channels * Replacement Bit Count... 1920 * 1080 * 3 * 3 bits ~= 2.3 million bytes ~= 2.2 thousand KB) (Funnily enough, that's actually more than enough space to store a smaller image inside!)
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">🔼 Back To Top 🔼</a></p>
 
 ### Better Approaches To Hiding Precious Bytes
 
@@ -28,7 +28,7 @@ A *slightly* better way of putting our data in the image or container would be f
 
 Now that's all well and good (it's not), but our data still isn't secure. It's better practice to first encrypt our data using some modern encryption algorithm. If you'd like to read further into this I recommend checking out the python `Fernet` library [https://cryptography.io/en/latest/fernet/](https://cryptography.io/en/latest/fernet/ "Fernet (Symmetric Encryption), cryptography.io").
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">🔼 Back To Top 🔼</a></p>
 
 # How To Use
 
@@ -108,4 +108,4 @@ recovered_data = stego.image.read_data(output_image, EOD_BYTES)
 print(recovered_data)
 ```
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">🔼 Back To Top 🔼</a></p>
