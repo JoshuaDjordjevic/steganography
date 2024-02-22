@@ -1,24 +1,35 @@
-def bytes_to_bitstring(bytes:bytes):
-    # Convert each byte to its binary representation and concatenate them
-    bitstring = ''.join(format(byte, '08b') for byte in bytes)
-    return bitstring
+import os
+import tempfile
+from PIL import Image
+import stego
 
-def bitstring_to_bytes(bitstring:str) -> bytes:
-    # Group the bits into bytes and convert them back to integers
-    bytes_list = [int(bitstring[i:i+8], 2) for i in range(0, len(bitstring), 8)]
-    # Pack the integers into a bytes object
-    bytestring = bytes(bytes_list)
-    return bytestring
+# Define the end-of-data marker
+EOD_BYTES = b"ohq.843$14s!d"
 
-def int_to_bitstring(integer:int, width:int=8):
-    return bin(integer)[2:].zfill(width)
+try:
+    # Load the input image
+    input_image_path = "test.png"
+    input_image = Image.open(input_image_path)
 
-def bitstring_to_int(bitstring:str):
-    result = 0
-    for bit in bitstring:
-        result = (result << 1) | int(bit)
-    return result
+    # Generate random data to hide in the image
+    data_size = int(64 * 64 * 3 * 3 / 8 - len(EOD_BYTES))  # Calculate the maximum data size based on image size
+    hidden_data = os.urandom(data_size)
 
-def replace_last_bits(integer:int, bits:str):
-    count = len(bits)
-    return bitstring_to_int(int_to_bitstring(integer)[:-count]+bits)
+    # Hide the data in the image and save the result to a temporary file
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_output_file:
+        output_image = stego.image.write_data(input_image, hidden_data, EOD_BYTES, lsb_count=3)
+        output_image.save(temp_output_file.name)
+
+        # Display the path of the output image
+        print(f"Output image saved to: {temp_output_file.name}")
+
+        # Read the hidden data from the output image
+        recovered_data = stego.image.read_data(output_image, EOD_BYTES, lsb_count=3)
+
+        # Print the recovered data
+        print("Recovered data matched?", recovered_data == hidden_data)
+
+except FileNotFoundError:
+    print("Error: Input image file not found.")
+except Exception as e:
+    print("An error occurred:", e)
