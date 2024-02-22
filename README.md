@@ -2,6 +2,10 @@
 
 Small personal tests related to the concept of Steganography, such as putting and retreiving data into / from simple image files (PNGs). More code will be added to this repository as I continue testing things.
 
+# Requirements
+
+This code repository requires `PIL (Python Imaging Library (Fork))`, which can be installed via pip using `pip install pillow`, or downloaded from [pypi](https://pypi.org/project/pillow/ "Pillow Pypi page"). See the [Pillow installation guide](https://pillow.readthedocs.io/en/latest/installation.html) if you run into any trouble!
+
 # How To Use
 
 ## stego.image - Example Usage
