@@ -1,14 +1,23 @@
 <div id="top"></div>
 
-# About This Repo
+# 1. Table Of Contents
+- [1. Table Of Contents](#1-table-of-contents)
+- [2. About This Repo](#2-about-this-repo)
+- [3. Requirements](#3-requirements)
+- [4. LSB Substitution Explained](#4-lsb-substitution-explained)
+  - [4.1. Better Approaches To Hiding Precious Bytes](#41-better-approaches-to-hiding-precious-bytes)
+- [5. Using My Library](#5-using-my-library)
+  - [5.1. stego.image - Example Usage](#51-stegoimage---example-usage)
+
+# 2. About This Repo
 
 I created this repository to experiment with a form of Steganography - Least significant bit substitution. If we'd like to know how this works under the hood we can take a look at the simplest example (see the explanation below). More code will be added to this repository as I continue testing things.
 
-# Requirements
+# 3. Requirements
 
 This code repository requires `PIL (Python Imaging Library (Fork))`, which can be installed via pip using `pip install pillow`, or downloaded from [pypi](https://pypi.org/project/pillow/ "Pillow Pypi page"). See the [Pillow installation guide](https://pillow.readthedocs.io/en/latest/installation.html) if you run into any trouble!
 
-# LSB Substitution Explained
+# 4. LSB Substitution Explained
 
 Say we have some binary data, `010`. Now, say we have some kind of "container", which in this case is an 8-bit number (0-255). For this example, let's say our number is `187`, which is `10111011` in binary. What we can do here is cut out the last couple bits from our number (in this case 3, since we've got 3 bits we want to store). We can then append our data to the end of the truncated original data, giving us `10111 + 010`, which upon converting back to base-10 gives us `186`.
 
@@ -18,7 +27,7 @@ Now how is this useful? All we've seen is storing 3 bits in a small number. That
 
 <p><a href="#top">🔼 Back To Top 🔼</a></p>
 
-## Better Approaches To Hiding Precious Bytes
+## 4.1. Better Approaches To Hiding Precious Bytes
 
 Now what about artifacting? Well, with LSB substitution, artifacts can appear my visible if the input image is very uniform or a repeating pattern. Say we used a plain white image as our input. We'd see all the slight colour variations after editing the bits of our image. If we plan on sending this image anywhere over the internet we wouldn't want people to easily see the data we're trying to hide, so it's more appropriate to use an original image (i.e. take a photo with your phone camera and use that as the input - This provides a layer of noise too which means artifacts will be hardly noticeable if at all!)
 
@@ -30,9 +39,9 @@ Now that's all well and good (it's not), but our data still isn't secure. It's b
 
 <p><a href="#top">🔼 Back To Top 🔼</a></p>
 
-# Using My Library
+# 5. Using My Library
 
-## stego.image - Example Usage
+## 5.1. stego.image - Example Usage
 
 This example covers how you can use `stego.image` to read and write byte data to and from a PNG image:
 
